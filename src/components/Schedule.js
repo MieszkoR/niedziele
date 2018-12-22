@@ -6,11 +6,11 @@ let tab2=[];
 let j=0;
 for(let i=0;i<23;i++){
   if(tab[j+1]==="tak"){
-  el=<td STYLE="color:green">{tab[j+1]} </td>;
+  el=<td STYLE="color: #00E676">{tab[j+1]} </td>;
   }else{
-    el=<td STYLE="color:red;">{tab[j+1]} </td>;
+    el=<td STYLE="color:#FF1744;">{tab[j+1]} </td>;
   }
-tab2[i]=<tr STYLE="font-size:x-large"><td>{tab[j]}</td> {el}</tr>;
+tab2[i]=<tr STYLE="font-size:x-large;font-family:Roboto;"><td>{tab[j]}</td> {el}</tr>;
 j+=2;
 
 }

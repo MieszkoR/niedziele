@@ -22,11 +22,11 @@ let kiedy;
 if(t){
   kiedy=<h1 STYLE="font-family: Roboto;font-size: 24px;
   text-align: center;text-align: center;font-style: normal;
-  font-weight: normal;">Dzisiejsza niedziela</h1>;
+  font-weight: normal;margin-top:10%">Dzisiejsza niedziela</h1>;
 }else{
   kiedy=<h1 STYLE="margin-bottom:0;font-family:Roboto;font-size: 24px;
   text-align: center;text-align: center;font-style: normal;
-  font-weight: normal;">Najbliższa niedziela</h1>;
+  font-weight: normal;margin-top:10%">Najbliższa niedziela</h1>;
 }
 if(tab[tab.indexOf(sunday)+1]==="tak"){
   
