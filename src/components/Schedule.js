@@ -21,10 +21,12 @@ class Content extends Component {
     return(
       <center>
         <div STYLE="100%;height:800px;line-height:3em;overflow:auto;padding:5px;">
-    <table rules="cols"cellpadding="8">
+    <table rules="cols"cellpadding="8" >
       {tab2}
     </table>
+    
     </div>
+   
     </center>
     )
   }
