@@ -95,7 +95,7 @@ class App extends Component {
           </AppBar>
           <Fragment>
             <Route exact path="/" component={Today} />
-            <Route path="/rozklad" component={Schedule} />
+            <Route  path="/rozklad" component={Schedule} />
           </Fragment>
         </Fragment>
       </BrowserRouter>
