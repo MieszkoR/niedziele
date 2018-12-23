@@ -5,6 +5,7 @@ import { BrowserRouter, Link, Route } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import {
   CssBaseline,
+  Grid,
   AppBar,
   Toolbar,
   Button,
@@ -18,14 +19,17 @@ const styles = {
     flexGrow: 1
   },
   menuButton: {
-    marginRight: 20
+    marginRight: 16
+  },
+  Content: {
+    marginTop: 16
   }
 };
 
 class App extends Component {
   state = {
     todayButton: {
-      variant: "default",
+      variant: "text",
       color: "inherit"
     },
     scheduleButton: {
@@ -38,7 +42,7 @@ class App extends Component {
     if (location === "today") {
       this.setState({
         todayButton: {
-          variant: "default",
+          variant: "text",
           color: "inherit"
         },
         scheduleButton: {
@@ -93,10 +97,16 @@ class App extends Component {
               </Button>
             </Toolbar>
           </AppBar>
-          <Fragment>
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+            className={classes.Content}
+          >
             <Route exact path="/" component={Today} />
-            <Route  path="/rozklad" component={Schedule} />
-          </Fragment>
+            <Route path="/rozklad" component={Schedule} />
+          </Grid>
         </Fragment>
       </BrowserRouter>
     );
