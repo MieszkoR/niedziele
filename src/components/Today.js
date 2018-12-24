@@ -1,68 +1,73 @@
 import React, { Component, Fragment } from "react";
-import tab from "./xddd";
-import { Schedule } from ".";
+import PropTypes from "prop-types";
+import { Typography } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import tab from "./Data";
 
-  let t=false;
-  var now = new Date();
-  
-  let day=now.getUTCDay(); //który dzień tygodnia
-  let brak=7-day; //ile zostało dni do niedzieli
-  if(brak!==0){ //czy jest niedziela
-  let tru=now.getDate(); //który dzień miesiąca
-  tru+=brak; //najbliższa niedziela
-  now.setDate(tru); 
-}else t=true;
-
-var sunday = now.getDate().toString() +'.'+ (now.getMonth()+1).toString() +'.'+now.getFullYear().toString(); 
-
-
-
-
-let kiedy;
-if(t){
-  kiedy=<h1 STYLE="font-family: Roboto;font-size: 24px;
-  text-align: center;text-align: center;font-style: normal;
-  font-weight: normal;margin-top:10%">Dzisiejsza niedziela</h1>;
-}else{
-  kiedy=<h1 STYLE="margin-bottom:0;font-family:Roboto;font-size: 24px;
-  text-align: center;text-align: center;font-style: normal;
-  font-weight: normal;margin-top:10%">Najbliższa niedziela</h1>;
-}
-if(tab[tab.indexOf(sunday)+1]==="tak"){
-  
-   
-  
-   sunday=<h1 STYLE="color: #00E676;font-size: 72px;font-family:Roboto;text-align: center;margin-top:0;margin-bottom:0">jest</h1>;
-}
-  else{
-  sunday=<h1 STYLE="color:red;font-family:Roboto;text-align: center;margin-top:0;margin-bottom:0;">nie jest</h1>;
-}
-
+const styles = {
+  canTrade: {
+    color: "#00E676"
+  },
+  cannotTrade: {
+    color: "#FF174"
+  }
+};
 
 class Content extends Component {
-  
-  
-  render() {
-    return (
-      <center>
-        <br/>
-      {kiedy}
-      <br/>
-      {sunday}
-      <br/>
-      <h1 STYLE="margin-top:0;font-family:Roboto;font-size: 24px;
-  text-align: center;text-align: center;font-style: normal;
-  font-weight: normal;">handlowa</h1>
+  state = {
+    isSunday: false,
+    label: "najbliższa",
+    trade: false
+  };
 
-      </center>
-      
-      
-      
-      );
+  isItSundayToday() {
+    const today = new Date();
+    const weekday = today.getDay();
+    this.setState({
+      isSunday: weekday === 0,
+      label: weekday === 0 ? "dzisiejsza" : "najbliższa"
+    });
+  }
+
+  isTradeSunday() {
+    const today = new Date();
+    const nearestSunday =
+      today.getDate().toString() +
+      "." +
+      (today.getMonth() + 1).toString() +
+      "." +
+      today.getFullYear().toString();
+    this.setState({
+      trade: tab[nearestSunday]
+    });
+  }
+
+  componentDidMount() {
+    this.isItSundayToday();
+    this.isTradeSunday();
+  }
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <Fragment>
+        <Typography variant="h6">
+          {this.state.label} niedziela
+        </Typography>
+        <Typography
+          variant="h1"
+          className={this.state.trade ? classes.canTrade : classes.cannotTrade}
+        >
+          {this.state.trade ? "JEST" : "NIE JEST"}
+        </Typography>
+        <Typography variant="h6">handlowa</Typography>
+      </Fragment>
+    );
   }
 }
 
+Content.propTypes = {
+  classes: PropTypes.object.isRequired
+};
 
-
-
-export default Content;
+export default withStyles(styles)(Content);
