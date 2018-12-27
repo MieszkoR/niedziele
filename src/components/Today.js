@@ -1,68 +1,83 @@
 import React, { Component, Fragment } from "react";
 import tab from "./xddd";
-import { Schedule } from ".";
-
-  let t=false;
-  var now = new Date();
-  
-  let day=now.getUTCDay(); //który dzień tygodnia
-  let brak=7-day; //ile zostało dni do niedzieli
-  if(brak!==0){ //czy jest niedziela
-  let tru=now.getDate(); //który dzień miesiąca
-  tru+=brak; //najbliższa niedziela
-  now.setDate(tru); 
-}else t=true;
-
-var sunday = now.getDate().toString() +'.'+ (now.getMonth()+1).toString() +'.'+now.getFullYear().toString(); 
+import { Schedule, Today } from ".";
+import {withStyles} from "@material-ui/core/styles";
 
 
-
-
-let kiedy;
-if(t){
-  kiedy=<h1 STYLE="font-family: Roboto;font-size: 24px;
-  text-align: center;text-align: center;font-style: normal;
-  font-weight: normal;margin-top:10%">Dzisiejsza niedziela</h1>;
-}else{
-  kiedy=<h1 STYLE="margin-bottom:0;font-family:Roboto;font-size: 24px;
-  text-align: center;text-align: center;font-style: normal;
-  font-weight: normal;margin-top:10%">Najbliższa niedziela</h1>;
+const style={
+  handlowa:{
+    color:"#00E676",
+    fontStyle: "normal",
+    fontWeight: "500",
+    lineHeight: "normal",
+    fontSize: "72px",
+    margin:"0",
+    fontWeight: "bold",
+  },
+  niehandlowa:{
+   color:"#FF1744",
+   fontStyle: "normal",
+    fontWeight: "500",
+    lineHeight: "normal",
+    fontSize: "72px",
+    margin:"0",
+    fontWeight: "bold",
+  },
+  normal:{
+    fontStyle: "normal",
+    fontWeight: "normal",
+  }, 
 }
-if(tab[tab.indexOf(sunday)+1]==="tak"){
-  
-   
-  
-   sunday=<h1 STYLE="color: #00E676;font-size: 72px;font-family:Roboto;text-align: center;margin-top:0;margin-bottom:0">jest</h1>;
-}
-  else{
-  sunday=<h1 STYLE="color:red;font-family:Roboto;text-align: center;margin-top:0;margin-bottom:0;">nie jest</h1>;
-}
-
+let s="font-family:Roboto;margin-top:11%";
 
 class Content extends Component {
   
-  
-  render() {
-    return (
-      <center>
-        <br/>
-      {kiedy}
-      <br/>
-      {sunday}
-      <br/>
-      <h1 STYLE="margin-top:0;font-family:Roboto;font-size: 24px;
-  text-align: center;text-align: center;font-style: normal;
-  font-weight: normal;">handlowa</h1>
-
-      </center>
-      
-      
-      
-      );
-  }
+State={
+kiedy:"Dzisiejsza niedziela",
+czy:true,
+hm:"jest"
 }
 
+  render() {
+    
+    return(
+    <center STYLE={s}>
 
+   <h2 style={style.normal}>{this.State.kiedy}</h2>
 
+<h1 style={this.State.czy ? style.handlowa:style.niehandlowa}>{this.State.hm}</h1>
 
-export default Content;
+<h2 style={style.normal}>handlowa</h2>
+
+    </center>
+
+   )  
+  }
+czyniedziela(){
+  
+  let today = new Date;
+  if(today.getDay()!==0){
+    
+    this.setState({kiedy:"Najbliższa niedziela"});
+    this.State.kiedy="Najbliższa niedziela";
+    today.setDate(today.getDate()+(7-today.getDay()));
+    
+  }
+  let data=today.getDate().toString()+"."+(today.getMonth()+1).toString()+"."+today.getFullYear().toString();
+  
+  if(tab[data]==="nie"){
+   
+    this.State.czy=false;
+    this.State.hm="nie jest";
+    }
+}
+
+componentDidMount(){
+ 
+  this.czyniedziela();
+  
+}
+
+}
+
+export default withStyles(style)(Content);

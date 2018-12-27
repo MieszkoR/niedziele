@@ -1,35 +1,48 @@
 import React, { Component, Fragment } from "react";
 import tab from "./xddd";
-let el;
+import {withStyles} from "@material-ui/core/styles";
 
-let tab2=[];
-let j=0;
-for(let i=0;i<23;i++){
-  if(tab[j+1]==="tak"){
-  el=<td STYLE="color: #00E676">{tab[j+1]} </td>;
-  }else{
-    el=<td STYLE="color:#FF1744;">{tab[j+1]} </td>;
-  }
-tab2[i]=<tr STYLE="font-size:x-large;font-family:Roboto;"><td>{tab[j]}</td> {el}</tr>;
-j+=2;
 
+const Styles={
+h:{
+color:"#00E676"
+ },
+n:{
+  color:"#FF1744"
+ },
+tabl:{
+  borderColor:"rgba(0, 0, 0, 0.25)",
+  
+ },
+ div:{
+  fontSize:"24px",
+  height:"700px",
+  lineHeight:"2.5em",
+  overflow:"auto",
+  padding:"25px",
+ }
 }
+
+let t=Object.keys(tab);
+
+t=t.map(function callback(cur){
+  return <tr>
+    <td>{cur}</td>
+    <td style={tab[cur]==="tak"?Styles.h:Styles.n}>{tab[cur]==="tak"?"Jest":"Nie jest"}</td>
+    </tr>
+});
 
 class Content extends Component {
   render() {
-    
     return(
-      <center>
-        <div STYLE="100%;height:800px;line-height:3em;overflow:auto;padding:5px;">
-    <table rules="cols"cellpadding="8" >
-      {tab2}
+      <center Style="font-family:Roboto;">
+        <div style={Styles.div}>
+    <table rules="cols"cellpadding="9"frame="void" style={Styles.tabl}>
+      {t} 
     </table>
-    
-    </div>
-   
-    </center>
+        </div>
+      </center>
     )
   }
 }
-
-export default Content;
+export default withStyles(Styles)(Content);
