@@ -1,83 +1,74 @@
-import React, { Component, Fragment } from "react";
-import tab from "./xddd";
-import { Schedule, Today } from ".";
-import {withStyles} from "@material-ui/core/styles";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import tab from "./Data";
+import { Typography, Grid } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 
-
-const style={
-  handlowa:{
-    color:"#00E676",
-    fontStyle: "normal",
-    fontWeight: "500",
-    lineHeight: "normal",
-    fontSize: "72px",
-    margin:"0",
-    fontWeight: "bold",
-  },
-  niehandlowa:{
-   color:"#FF1744",
-   fontStyle: "normal",
-    fontWeight: "500",
-    lineHeight: "normal",
-    fontSize: "72px",
-    margin:"0",
-    fontWeight: "bold",
-  },
-  normal:{
-    fontStyle: "normal",
-    fontWeight: "normal",
-  }, 
-}
-let s="font-family:Roboto;margin-top:11%";
+const style = {
+  handlowa: { color: "#00E676" },
+  niehandlowa: { color: "#FF1744" }
+};
 
 class Content extends Component {
-  
-State={
-kiedy:"Dzisiejsza niedziela",
-czy:true,
-hm:"jest"
-}
+  state = {
+    kiedy: "Dzisiejsza niedziela",
+    czy: true,
+    hm: "jest"
+  };
+
+  czyniedziela() {
+    let today = new Date();
+    if (today.getDay() !== 0) {
+      this.setState({ kiedy: "Najbliższa niedziela" });
+      today.setDate(today.getDate() + (7 - today.getDay()));
+    }
+    let data =
+      today.getDate().toString() +
+      "." +
+      (today.getMonth() + 1).toString() +
+      "." +
+      today.getFullYear().toString();
+
+    if (tab[data] === false) {
+      this.setState({ czy: false });
+      this.setState({ hm: "nie jest" });
+    }
+  }
+
+  componentDidMount() {
+    this.czyniedziela();
+  }
 
   render() {
-    
-    return(
-    <center STYLE={s}>
+    const { classes } = this.props;
 
-   <h2 style={style.normal}>{this.State.kiedy}</h2>
-
-<h1 style={this.State.czy ? style.handlowa:style.niehandlowa}>{this.State.hm}</h1>
-
-<h2 style={style.normal}>handlowa</h2>
-
-    </center>
-
-   )  
+    return (
+      <Grid container direction="column" alignItems="center" spacing={16}>
+        <Grid item>
+          <Typography variant="h4" className={classes.normal}>
+            {this.state.kiedy}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography
+            variant="h1"
+            className={this.state.czy ? classes.handlowa : classes.niehandlowa}
+          >
+            {this.state.hm}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="h4" className={classes.normal}>
+            handlowa
+          </Typography>
+        </Grid>
+      </Grid>
+    );
   }
-czyniedziela(){
-  
-  let today = new Date;
-  if(today.getDay()!==0){
-    
-    this.setState({kiedy:"Najbliższa niedziela"});
-    this.State.kiedy="Najbliższa niedziela";
-    today.setDate(today.getDate()+(7-today.getDay()));
-    
-  }
-  let data=today.getDate().toString()+"."+(today.getMonth()+1).toString()+"."+today.getFullYear().toString();
-  
-  if(tab[data]==="nie"){
-   
-    this.State.czy=false;
-    this.State.hm="nie jest";
-    }
 }
 
-componentDidMount(){
- 
-  this.czyniedziela();
-  
-}
-
-}
+Content.propTypes = {
+  classes: PropTypes.object.isRequired
+};
 
 export default withStyles(style)(Content);

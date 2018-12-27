@@ -8,7 +8,8 @@ import {
   AppBar,
   Toolbar,
   Button,
-  Typography
+  Typography,
+  Grid
 } from "@material-ui/core";
 
 import { Today, Schedule } from "./components";
@@ -19,6 +20,9 @@ const styles = {
   },
   menuButton: {
     marginRight: 20
+  },
+  content: {
+    marginTop: "5em"
   }
 };
 
@@ -66,7 +70,7 @@ class App extends Component {
       <BrowserRouter>
         <Fragment>
           <CssBaseline />
-          <AppBar position="static" color="default">
+          <AppBar position="fixed" color="default">
             <Toolbar>
               <Typography variant="h6" color="inherit">
                 Niedziele
@@ -93,10 +97,10 @@ class App extends Component {
               </Button>
             </Toolbar>
           </AppBar>
-          <Fragment>
+          <Grid container justify="center" className={classes.content}>
             <Route exact path="/" component={Today} />
-            <Route  path="/rozklad" component={Schedule} />
-          </Fragment>
+            <Route path="/rozklad" component={Schedule} />
+          </Grid>
         </Fragment>
       </BrowserRouter>
     );
