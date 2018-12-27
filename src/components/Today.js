@@ -65,7 +65,7 @@ czyniedziela(){
   }
   let data=today.getDate().toString()+"."+(today.getMonth()+1).toString()+"."+today.getFullYear().toString();
   
-  if(tab[data]==="nie"){
+  if(!tab[data]){
    
     this.State.czy=false;
     this.State.hm="nie jest";

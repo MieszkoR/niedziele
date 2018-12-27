@@ -12,7 +12,6 @@ n:{
  },
 tabl:{
   borderColor:"rgba(0, 0, 0, 0.25)",
-  
  },
  div:{
   fontSize:"24px",
@@ -28,7 +27,7 @@ let t=Object.keys(tab);
 t=t.map(function callback(cur){
   return <tr>
     <td>{cur}</td>
-    <td style={tab[cur]==="tak"?Styles.h:Styles.n}>{tab[cur]==="tak"?"Jest":"Nie jest"}</td>
+    <td style={tab[cur]?Styles.h:Styles.n}>{tab[cur]?"Jest":"Nie jest"}</td>
     </tr>
 });
 
