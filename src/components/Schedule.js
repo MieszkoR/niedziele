@@ -1,47 +1,74 @@
-import React, { Component, Fragment } from "react";
-import tab from "./xddd";
-import {withStyles} from "@material-ui/core/styles";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import tab from "./data";
+import { Typography } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 
-
-const Styles={
-h:{
-color:"#00E676"
- },
-n:{
-  color:"#FF1744"
- },
-tabl:{
-  borderColor:"rgba(0, 0, 0, 0.25)",
- },
- div:{
-  fontSize:"24px",
-  height:"700px",
-  lineHeight:"2.5em",
-  overflow:"auto",
-  padding:"25px",
- }
-}
-
-let t=Object.keys(tab);
-
-t=t.map(function callback(cur){
-  return <tr>
-    <td>{cur}</td>
-    <td style={tab[cur]?Styles.h:Styles.n}>{tab[cur]?"Jest":"Nie jest"}</td>
-    </tr>
-});
+const styles = {
+  h: { color: "#00E676", marginLeft: "0.5em" },
+  n: { color: "#FF1744", marginLeft: "0.5em" },
+  tabl: { borderColor: "rgba(0, 0, 0, 0.25)" },
+  div: {
+    fontSize: "1.5em",
+    lineHeight: "2.5em",
+    overflow: "auto",
+    marginBottom: "2em"
+  },
+  date: {
+    textAlign: "right",
+    marginRight: "0.5em"
+  }
+};
 
 class Content extends Component {
+  tableContent = (keys, classes) =>
+    keys.map(current => (
+      <tr>
+        <td>
+          <Typography variant="h4" className={classes.date}>
+            {current}
+          </Typography>
+        </td>
+        <td>
+          {tab[current] ? (
+            <Typography
+              variant="h5"
+              className={tab[current] ? classes.h : classes.n}
+            >
+              Jest
+            </Typography>
+          ) : (
+            <Typography
+              variant="h5"
+              className={tab[current] ? classes.h : classes.n}
+            >
+              Nie jest
+            </Typography>
+          )}
+        </td>
+      </tr>
+    ));
+
   render() {
-    return(
-      <center Style="font-family:Roboto;">
-        <div style={Styles.div}>
-    <table rules="cols"cellpadding="9"frame="void" style={Styles.tabl}>
-      {t} 
-    </table>
+    const { classes } = this.props;
+    return (
+      <div>
+        <div className={classes.div}>
+          <table
+            rules="cols"
+            cellPadding="15"
+            className={classes.tabl}
+          >
+            {this.tableContent(Object.keys(tab), classes)}
+          </table>
         </div>
-      </center>
-    )
+      </div>
+    );
   }
 }
-export default withStyles(Styles)(Content);
+
+Content.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(Content);
