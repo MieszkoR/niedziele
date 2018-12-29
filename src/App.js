@@ -63,11 +63,13 @@ class App extends Component {
       });
     }
   };
-
+  
   render() {
+    
     const { classes } = this.props;
     return (
-      <BrowserRouter>
+      <BrowserRouter >
+    
         <Fragment>
           <CssBaseline />
           <AppBar position="fixed" color="default">
@@ -93,6 +95,7 @@ class App extends Component {
                 to="/rozklad"
                 onClick={() => this.handleChange("schedule")}
               >
+             
                 ROZKŁAD
               </Button>
             </Toolbar>
@@ -105,6 +108,20 @@ class App extends Component {
       </BrowserRouter>
     );
   }
+  componentDidMount() {
+    if((document.URL==="http://localhost:3000/rozklad")||(document.URL==="http://192.168.0.14:3000/rozklad")){
+    this.setState({
+      todayButton: {
+        variant: "contained",
+        color: "primary"
+      },
+      scheduleButton: {
+        variant: "default",
+        color: "inherit"
+      }
+    })
+  }
+}
 }
 
 App.propTypes = {
