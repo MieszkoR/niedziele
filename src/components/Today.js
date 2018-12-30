@@ -45,9 +45,7 @@ class Content extends Component {
     return (
       <Grid container direction="column" alignItems="center" spacing={16}>
         <Grid item>
-          <Typography variant="h4">
-            {this.state.kiedy}
-          </Typography>
+          <Typography variant="h4">{this.state.kiedy}</Typography>
         </Grid>
         <Grid item>
           <Typography
@@ -58,9 +56,7 @@ class Content extends Component {
           </Typography>
         </Grid>
         <Grid item>
-          <Typography variant="h4">
-            handlowa
-          </Typography>
+          <Typography variant="h4">handlowa</Typography>
         </Grid>
       </Grid>
     );
