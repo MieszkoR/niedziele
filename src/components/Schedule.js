@@ -54,11 +54,7 @@ class Content extends Component {
     return (
       <div>
         <div className={classes.div}>
-          <table
-            rules="cols"
-            cellPadding="15"
-            className={classes.tabl}
-          >
+          <table rules="cols" cellPadding="15" className={classes.tabl}>
             {this.tableContent(Object.keys(tab), classes)}
           </table>
         </div>
